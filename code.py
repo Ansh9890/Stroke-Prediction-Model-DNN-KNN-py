@@ -20,3 +20,15 @@ scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.36, random_state=42, stratify=y)
 X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=5/9, random_state=42, stratify=y_temp)
+
+print("Deep Learning Model (DNN):")
+dnn_params = {
+    'input_shape': X_train.shape[1],
+    'hidden_layers': [128, 96, 64],
+    'activation': 'selu',
+    'output_size': 3,
+    'optimizer': tf.keras.optimizers.Adam(learning_rate=0.0005),
+    'batch_size': 200,
+    'epochs': 100,
+    'early_stop_patience': 3
+}
