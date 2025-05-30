@@ -32,3 +32,10 @@ dnn_params = {
     'epochs': 100,
     'early_stop_patience': 3
 }
+
+model = Sequential()
+model.add(Input(shape=(dnn_params['input_shape'],)))
+for units in dnn_params['hidden_layers']:
+    model.add(Dense(units, activation=dnn_params['activation']))
+    model.add(BatchNormalization())
+model.add(Dense(dnn_params['output_size'], activation='softmax'))
