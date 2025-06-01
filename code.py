@@ -39,3 +39,10 @@ for units in dnn_params['hidden_layers']:
     model.add(Dense(units, activation=dnn_params['activation']))
     model.add(BatchNormalization())
 model.add(Dense(dnn_params['output_size'], activation='softmax'))
+model.compile(optimizer=dnn_params['optimizer'],
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss',
+                                                  patience=dnn_params['early_stop_patience'],
+                                                  restore_best_weights=True,
+                                                  verbose=0)
