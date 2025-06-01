@@ -46,3 +46,14 @@ early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss',
                                                   patience=dnn_params['early_stop_patience'],
                                                   restore_best_weights=True,
                                                   verbose=0)
+model.fit(X_train, y_train,
+          batch_size=dnn_params['batch_size'],
+          epochs=dnn_params['epochs'],
+          validation_data=(X_val, y_val),
+          callbacks=[early_stopping],
+          verbose=0)
+dnn_predictions = np.argmax(model.predict(X_test), axis=-1)
+dnn_acc = accuracy_score(y_test, dnn_predictions)
+print(f"DNN Test Accuracy: {dnn_acc:.2%}")
+print("\nDNN Classification Report:")
+print(classification_report(y_test, dnn_predictions, digits=2))
