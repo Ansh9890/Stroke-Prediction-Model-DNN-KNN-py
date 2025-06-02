@@ -57,3 +57,23 @@ dnn_acc = accuracy_score(y_test, dnn_predictions)
 print(f"DNN Test Accuracy: {dnn_acc:.2%}")
 print("\nDNN Classification Report:")
 print(classification_report(y_test, dnn_predictions, digits=2))
+
+print("K-Nearest Neighbors (KNN):")
+knn_params = {
+    'n_neighbors': 20,
+    'weights': 'distance',
+    'metric': 'minkowski',
+    'p': 2
+}
+knn = KNeighborsClassifier(n_neighbors=knn_params['n_neighbors'],
+                           weights=knn_params['weights'],
+                           metric=knn_params['metric'],
+                           p=knn_params['p'])
+knn.fit(X_train, y_train)
+knn_predictions = knn.predict(X_test)
+knn_acc = accuracy_score(y_test, knn_predictions)
+print(f"KNN Test Accuracy: {knn_acc:.2%}")
+print("\nKNN Classification Report:")
+print(classification_report(y_test, knn_predictions, digits=2))
+print("KNN Confusion Matrix:")
+print(confusion_matrix(y_test, knn_predictions))
